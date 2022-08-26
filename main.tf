@@ -113,3 +113,4 @@ resource "azurerm_public_ip" "app_public_ip" {
     azurerm_resource_group.app_grp
   ]
 }
+
