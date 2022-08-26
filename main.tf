@@ -8,6 +8,12 @@ terraform {
       version = "~>2.0"
     }
   }
+  backend "azurerm" {
+        resource_group_name  = "kennametal"
+        storage_account_name = "kennametal268"
+        container_name       = "kennametal"
+        key                  = "terraform.tfstate"
+    }
 }
 
 provider "azurerm" {
