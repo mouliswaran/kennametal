@@ -7,7 +7,7 @@ variable "region" {
 variable "resource_group" {
   description = "Azure resource group in which services will be deployed"
   type        = string
-  default     = "Kennametal"
+  default     = "Kennametal-demo"
 }
 
 variable "username" {
