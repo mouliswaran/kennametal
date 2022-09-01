@@ -9,7 +9,7 @@ terraform {
     }
   }
   backend "azurerm" {
-        resource_group_name  = "kennametal"
+        resource_group_name  = "kennametalll"
         storage_account_name = "kennametal268"
         container_name       = "kennametal"
         key                  = "terraform.tfstate"
