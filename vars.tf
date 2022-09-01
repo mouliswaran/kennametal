@@ -24,5 +24,5 @@ variable "password" {
 
 variable "size" {
   type        = string
-  default     = "Standard_D2s_v3"
+  default     = "Standard_D4s_v3"
 }
