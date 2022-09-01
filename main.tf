@@ -1,5 +1,5 @@
 terraform {
-  
+
   required_version = ">=0.12"
 
   required_providers {
@@ -14,30 +14,18 @@ terraform {
         container_name       = "kennametal"
         key                  = "terraform.tfstate"
     }
+
 }
 
 provider "azurerm" {
-  
   features {}
 }
 
 locals {
-  resource_group = "Kennametal-poc"
-  location       = "East US"
+  resource_group = var.resource_group
+  location       = var.region
 }
 
-resource "tls_private_key" "linux_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-# We want to save the private key to our machine
-# We can then use this key to connect to our Linux VM
-
-resource "local_file" "linuxkey" {
-  filename = "linuxkey.pem"
-  content  = tls_private_key.linux_key.private_key_pem
-}
 
 resource "azurerm_resource_group" "app_grp" {
   name     = local.resource_group
@@ -84,15 +72,12 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   name                = "linuxvm"
   resource_group_name = local.resource_group
   location            = local.location
-  size                = "Standard_D2s_v3"
-  admin_username      = "linuxusr"
+  size                = var.size
+  admin_username      = var.username
+  admin_password      = var.password 
   network_interface_ids = [
     azurerm_network_interface.app_interface.id,
   ]
-  admin_ssh_key {
-    username   = "linuxusr"
-    public_key = tls_private_key.linux_key.public_key_openssh
-  }
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -120,4 +105,3 @@ resource "azurerm_public_ip" "app_public_ip" {
     azurerm_resource_group.app_grp
   ]
 }
-
