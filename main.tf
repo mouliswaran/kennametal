@@ -92,7 +92,6 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
 
   depends_on = [
     azurerm_network_interface.app_interface,
-    tls_private_key.linux_key
   ]
 }
 
